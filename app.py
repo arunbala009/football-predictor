@@ -1,31 +1,22 @@
 import streamlit as st
 import pickle
-import xgboost
-import sklearn
+import numpy as np
 
 model=pickle.load(
 open(
-'model.pkl',
-'rb'))
+"model.pkl",
+"rb"))
 
-encoder=pickle.load(
+team_stats=pickle.load(
 open(
-'encoder.pkl',
-'rb'))
+"team_stats.pkl",
+"rb"))
 
-teams=[
-'Real Madrid',
-'Barcelona',
-'Manchester City',
-'Liverpool',
-'Arsenal',
-'Bayern Munich',
-'PSG',
-'Inter Milan'
-]
+teams=list(
+team_stats.keys())
 
 st.title(
-"European Football Predictor")
+"⚽ European Football Predictor")
 
 home=st.selectbox(
 "Home Team",
@@ -35,45 +26,28 @@ away=st.selectbox(
 "Away Team",
 teams)
 
-goals1=st.number_input(
-"Home Goals")
-
-goals2=st.number_input(
-"Away Goals")
-
-shots1=st.number_input(
-"Home Shots")
-
-shots2=st.number_input(
-"Away Shots")
-
 if st.button(
 "Predict"):
 
- home=encoder.transform([home])[0]
+    features=np.array([[
+        0,
+        0,
+        team_stats[home]["avg_goals"],
+        team_stats[away]["avg_goals"],
+        team_stats[home]["winrate"],
+        team_stats[away]["winrate"]
+    ]])
 
- away=encoder.transform([away])[0]
+    pred=model.predict(features)[0]
 
- result=model.predict(
- [[
- home,
- away,
- goals1,
- goals2,
- shots1,
- shots2,
- 2,
- 1
- ]])
+    if pred==2:
+        st.success(
+        f"{home} likely to win")
 
- if result==2:
-     st.success(
-     "Home Win")
+    elif pred==1:
+        st.warning(
+        "Likely Draw")
 
- elif result==1:
-     st.warning(
-     "Draw")
-
- else:
-     st.error(
-     "Away Win")
+    else:
+        st.error(
+        f"{away} likely to win")

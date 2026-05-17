@@ -1,4 +1,4 @@
-# ⚽ European Football Match Predictor
+#  European Football Match Predictor
 
 A Machine Learning-powered web application that predicts football match outcomes for top European clubs across the Top 5 leagues.
 
@@ -43,12 +43,12 @@ Includes top teams such as:
 
 ## Features
 
-✅ Match outcome prediction  
-✅ Interactive Streamlit UI  
-✅ Team selection dropdowns  
-✅ Machine learning model integration  
-✅ Deployment on Streamlit Cloud  
-✅ Trained on historical football data  
+ Match outcome prediction  
+ Interactive Streamlit UI  
+ Team selection dropdowns  
+ Machine learning model integration  
+ Deployment on Streamlit Cloud  
+ Trained on historical football data  
 
 ---
 
@@ -137,7 +137,7 @@ streamlit run app.py
 
 ---
 
-## Future Improvements
+## Further Improvements Possible
 
 - Team logos
 - Head-to-head statistics
